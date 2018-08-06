@@ -62,6 +62,9 @@ int UHD_SAFE_MAIN(int, char **){
     md2.end_of_burst = true;
     md2.has_time_spec = true;
     md2.time_spec = time_to_send;
+    //this 'send' call mimics what is being done in usrp_sink::start function
+    //https://github.com/gnuradio/gnuradio/blob/219eae9a9c2ef7644450e71d19f8f54c12e1f9cc/gr-uhd/lib/usrp_sink_impl.cc#L611
+    //this is later source underflow when first burst is sent
     tx_stream->send(buffs, total_num_samps, md2, 1.0);
 
     uhd::async_metadata_t async_md;
